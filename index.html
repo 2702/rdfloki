@@ -10,14 +10,90 @@
         <link rel="stylesheet" href="css/normalize.min.css">
         <link rel="stylesheet" href="css/main.css">
 
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
-		<script src="js/main.js"></script>
-		<script src="js/graph.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/rdfparser.js"></script>
+	<script src="js/graph.js"></script>
+
     </head>
     <body>
 
         <p>Hello world! This is RDF/XML -> graph loki generator</p>
-		<textarea id="xmlInput"></textarea>
+		<textarea id="xmlInput">
+                  <?xml version="1.0"?>
+
+                  <rdf:RDF
+		     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+		     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+		     xmlns:owl="http://www.w3.org/2002/07/owl#"
+		     xmlns:lokirel="http://loki.ia.agh.edu.pl/wiki/special:uriresolve:special:relation:"
+		     xmlns:lokiatt="http://loki.ia.agh.edu.pl/wiki/special:uriresolve:special:attribute:">
+
+	            <!-- exported page data -->
+	            <rdf:Description
+	               rdf:about="http://loki.ia.agh.edu.pl/wiki/special:uriresolve:bookstore:user:gjn">
+		      <rdfs:label>gjn</rdfs:label>
+		      <rdf:type rdf:resource="http://loki.ia.agh.edu.pl/wiki/special:uriresolve:special:category:user"/>
+		      <lokiatt:hasname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Grzegorz J. Nalepa</lokiatt:hasname>
+		      <lokiatt:hasage rdf:datatype="http://www.w3.org/2001/XMLSchema#string">35</lokiatt:hasage>
+		      <lokiatt:knowslanguage rdf:datatype="http://www.w3.org/2001/XMLSchema#string">english</lokiatt:knowslanguage>
+		      <lokiatt:knowslanguage rdf:datatype="http://www.w3.org/2001/XMLSchema#string">polish</lokiatt:knowslanguage>
+		      <lokiatt:knowslanguage rdf:datatype="http://www.w3.org/2001/XMLSchema#string">german</lokiatt:knowslanguage>
+		      <lokiatt:knowslanguage rdf:datatype="http://www.w3.org/2001/XMLSchema#string">french</lokiatt:knowslanguage>
+		      <lokiatt:knowslanguage rdf:datatype="http://www.w3.org/2001/XMLSchema#string">russian</lokiatt:knowslanguage>
+		      <lokiatt:hasfavouritegenre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">science</lokiatt:hasfavouritegenre>
+		      <lokirel:hasrecentlyread rdf:resource="http://loki.ia.agh.edu.pl/wiki/special:uriresolve:bookstore:book:the_call_of_cthulhu"/>
+		      <lokirel:hasfavouriteauthor rdf:resource="http://loki.ia.agh.edu.pl/wiki/special:uriresolve:bookstore:author:stephen_king"/>
+		      <lokirel:hasfavouriteauthor rdf:resource="http://loki.ia.agh.edu.pl/wiki/special:uriresolve:bookstore:author:h_p_lovecraft"/>
+		      <rdfs:isDefinedBy rdf:resource="http://loki.ia.agh.edu.pl/wiki/bookstore:user:gjn?do=exportrdf"/>
+	            </rdf:Description>
+
+	            <!-- related ontology data -->
+	            <owl:Class
+	               rdf:about="http://loki.ia.agh.edu.pl/wiki/special:uriresolve:special:category:user">
+		      <rdfs:label>user</rdfs:label>
+		      <rdfs:isDefinedBy rdf:resource="http://loki.ia.agh.edu.pl/wiki/special:category:user?do=exportrdf"/>
+	            </owl:Class>
+
+	            <owl:ObjectProperty
+	               rdf:about="http://loki.ia.agh.edu.pl/wiki/special:uriresolve:special:relation:hasrecentlyread">
+		      <rdfs:label>hasrecentlyread</rdfs:label>
+		      <rdfs:isDefinedBy rdf:resource="http://loki.ia.agh.edu.pl/wiki/special:relation:hasrecentlyread?do=exportrdf"/>
+	            </owl:ObjectProperty>
+
+	            <owl:ObjectProperty
+	               rdf:about="http://loki.ia.agh.edu.pl/wiki/special:uriresolve:special:relation:hasfavouriteauthor">
+		      <rdfs:label>hasfavouriteauthor</rdfs:label>
+		      <rdfs:isDefinedBy rdf:resource="http://loki.ia.agh.edu.pl/wiki/special:relation:hasfavouriteauthor?do=exportrdf"/>
+	            </owl:ObjectProperty>
+
+	            <owl:DatatypeProperty
+	               rdf:about="http://loki.ia.agh.edu.pl/wiki/special:uriresolve:special:attribute:hasname">
+		      <rdfs:label>hasname</rdfs:label>
+		      <rdfs:isDefinedBy rdf:resource="http://loki.ia.agh.edu.pl/wiki/special:attribute:hasname?do=exportrdf"/>
+	            </owl:DatatypeProperty>
+
+	            <owl:DatatypeProperty
+	               rdf:about="http://loki.ia.agh.edu.pl/wiki/special:uriresolve:special:attribute:hasage">
+		      <rdfs:label>hasage</rdfs:label>
+		      <rdfs:isDefinedBy rdf:resource="http://loki.ia.agh.edu.pl/wiki/special:attribute:hasage?do=exportrdf"/>
+	            </owl:DatatypeProperty>
+
+	            <owl:DatatypeProperty
+	               rdf:about="http://loki.ia.agh.edu.pl/wiki/special:uriresolve:special:attribute:knowslanguage">
+		      <rdfs:label>knowslanguage</rdfs:label>
+		      <rdfs:isDefinedBy rdf:resource="http://loki.ia.agh.edu.pl/wiki/special:attribute:knowslanguage?do=exportrdf"/>
+	            </owl:DatatypeProperty>
+
+	            <owl:DatatypeProperty
+	               rdf:about="http://loki.ia.agh.edu.pl/wiki/special:uriresolve:special:attribute:hasfavouritegenre">
+		      <rdfs:label>hasfavouritegenre</rdfs:label>
+		      <rdfs:isDefinedBy rdf:resource="http://loki.ia.agh.edu.pl/wiki/special:attribute:hasfavouritegenre?do=exportrdf"/>
+	            </owl:DatatypeProperty>
+
+                  </rdf:RDF>
+</textarea>
 		<div id="graphContainer"></div>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>
