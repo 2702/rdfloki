@@ -12,18 +12,11 @@
         <link rel="stylesheet" href="css/normalize.min.css">
         <link rel="stylesheet" href="css/main.css">
 
-	<script src="js/jquery-1.10.2.js"></script>
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
-
-	<script src="js/main.js"></script>
-	<script src="js/rdfparser.js"></script>
-	<script src="js/graph.js"></script>
-
     </head>
     <body>
 
-        <p>Hello world! This is RDF/XML -> graph loki generator</p>
+    <h1>RDF/XML -> graph loki generator!</h1>
 		<textarea id="xmlInput">
                   <?xml version="1.0"?>
 
@@ -100,9 +93,15 @@
 </textarea>
 		<div id="graphContainer"></div>
 
+                <a id="parse" class="btn btn-primary btn-large" href="#">generate</a>
+
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.js"><\/script>')</script>
 
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
         <script src="js/main.js"></script>
+	<script src="js/rdfparser.js"></script>
+	<script src="js/graph.js"></script>
     </body>
 </html>
