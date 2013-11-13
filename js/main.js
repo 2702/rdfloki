@@ -1,12 +1,13 @@
 $(function() {
     var $input = $('#xmlInput'),
         $parse = $('#parse'),
-        $graph = $('#graphContainer');
-
+        $graph = $('#graphContainer'),
+	$code = $('#parsedRDF code');
 
     function parse() {
-	$graph.html('milordzie generuje graf');
-	$.rdfParser.parse($input.val());
+	var data = $.rdfParser.parse($input.val());
+
+	$code.html(JSON.stringify(data, null, 4));
     };
 
     $parse.click(function() {
@@ -18,5 +19,4 @@ $(function() {
     });
 
     $parse.click();
-
 });

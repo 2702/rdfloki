@@ -16,8 +16,6 @@ $.extend({
 		data.push(this._parseObject(n));
 	    }, this);
 
-	    console.log(data);
-
 	    return data;
 	},
 

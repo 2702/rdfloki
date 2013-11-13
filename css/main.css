@@ -46,6 +46,8 @@ fieldset {
 
 textarea {
     resize: vertical;
+    height: 400px;
+    width: 100%;
 }
 
 .chromeframe {
@@ -220,4 +222,8 @@ textarea {
     h3 {
         page-break-after: avoid;
     }
+}
+
+code {
+    font-size: smaller !important;
 }
