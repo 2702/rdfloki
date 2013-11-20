@@ -2,12 +2,15 @@ $(function() {
     var $input = $('#xmlInput'),
         $parse = $('#parse'),
         $graph = $('#graphContainer'),
-	$code = $('#parsedRDF code');
+	$parsedRDF = $('#parsedRDF code'),
+	$graphData = $('#graphData code');
 
     function parse() {
 	var data = $.rdfParser.parse($input.val());
 
-	$code.html(JSON.stringify(data, null, 4));
+	$parsedRDF.html(JSON.stringify(data, null, 4));
+	$graphData.html(JSON.stringify(
+	    $.rdfGrapher.parse(data), null, 4));
     };
 
     $parse.click(function() {

@@ -21,7 +21,7 @@ $.extend({
 
 	_parseObject: function(node) {
 	    var data = {
-		'about': node.attr['rdf:about'],
+		'resource': node.attr['rdf:about'],
 		'lokiattrs': [],
 		'lokirels': []
 	    };
@@ -52,6 +52,7 @@ $.extend({
 		parent['lokiattrs'].push({
 		    'attr': name,
 		    'type': node.attr['rdf:datatype'],
+		    'label': node.val,
 		    'value': node.val
 		});
 		return;
@@ -61,10 +62,79 @@ $.extend({
 		parent['lokirels'].push({
 		    'attr': name,
 		    'type': node.attr['rdf:datatype'],
-		    'resource': node.attr['rdf:resource']
+		    'resource': node.attr['rdf:resource'],
+		    'label': /.*:(.*?:.*?:.*?.*?)$/.exec(node.attr['rdf:resource'])[1]
 		});
 		return;
 	    }
+	}
+    },
+
+    rdfGrapher: {
+
+	parse: function (data) {
+	    var graph = {
+	    	links: [],
+	    	nodes: []
+	    };
+
+	    data.forEach(function(node) {
+		this._parseObject(graph, node);
+	    }, this);
+
+	    return graph;
+	},
+
+	_parseObject: function (graph, data) {
+	    var index = graph.nodes.push({
+		label: data.label,
+		url: data.resource,
+		styles: ['resource', 'root']
+	    }) - 1;
+
+	    data["lokiattrs"].forEach(function(attr) {
+		this._parseLokiAttr(graph, attr, {
+		    data: data,
+		    index: index
+		});
+	    }, this);
+
+	    data["lokirels"].forEach(function(attr) {
+		this._parseLokiRel(graph, attr, {
+		    data: data,
+		    index: index
+		});
+	    }, this);
+
+	},
+
+	_parseLokiAttr: function (graph, data, root) {
+	    var index = graph.nodes.push({
+		label: data.label,
+		styles: ['attribute']
+	    }) - 1;
+
+	    graph.links.push({
+		source: root.index,
+		target: index,
+		label: data.attr,
+		styles: ['attribute']
+	    });
+	},
+
+	_parseLokiRel: function (graph, data, root) {
+	    var index = graph.nodes.push({
+		label: data.label,
+		url: data.resource,
+		styles: ['resource']
+	    }) - 1;
+
+	    graph.links.push({
+		source: root.index,
+		target: index,
+		label: data.attr,
+		styles: ['resource']
+	    });
 	}
     }
 });
