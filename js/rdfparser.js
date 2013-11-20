@@ -61,7 +61,7 @@ $.extend({
 		parent['lokirels'].push({
 		    'attr': name,
 		    'type': node.attr['rdf:datatype'],
-		    'value': node.val
+		    'resource': node.attr['rdf:resource']
 		});
 		return;
 	    }
