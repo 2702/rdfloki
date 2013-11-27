@@ -5,21 +5,31 @@ $(function() {
 	$parsedRDF = $('#parsedRDF code'),
 	$graphData = $('#graphData code');
 
+    function dataChanged() {
+	draw(parse());
+    }
+
     function parse() {
-	var data = $.rdfParser.parse($input.val());
+	var data = $.rdfParser.parse($input.val()),
+	    graphData = $.rdfGrapher.parse(data);
 
 	$parsedRDF.html(JSON.stringify(data, null, 4));
-	$graphData.html(JSON.stringify(
-	    $.rdfGrapher.parse(data), null, 4));
+	$graphData.html(JSON.stringify(graphData, null, 4));
+
+	return graphData;
+    };
+
+    function draw(graphData) {
+	$.rdfGraph.draw(graphData);
     };
 
     $parse.click(function() {
-        parse();
+        dataChanged();
     });
 
     $input.change(function(){
-	parse();
+        dataChanged();
     });
 
-    $parse.click();
+    dataChanged();
 });

@@ -227,3 +227,20 @@ textarea {
 code {
     font-size: smaller !important;
 }
+
+
+.node {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+.link {
+  stroke: #999;
+  stroke-opacity: .6;
+}
+
+.label {
+    stroke: black;
+    stroke-width: 0.5px;
+    color: white;
+}
