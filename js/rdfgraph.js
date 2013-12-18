@@ -24,11 +24,11 @@ $.extend({
 	    	.enter().append("line")
 	    	.attr("class", "link")
 
-	    // link.append("text")
-	    // 	.attr("dy", ".3em")
-	    //     .attr("class", "label")
-	    // 	.style("text-anchor", "middle")
-	    // 	.text(function(d) { return "testtest"; });
+	    var linkLabels = svg.selectAll(".link")
+	    	.data(data.links)
+	    	.enter().append("text")
+	    	.style("text-anchor", "middle")
+	    	.text(function(d) { return "testtest"; });
 
 	    var node = svg.selectAll(".node")
 		.data(data.nodes)
@@ -62,6 +62,10 @@ $.extend({
 		    .attr("y1", function(d) { return d.source.y; })
 		    .attr("x2", function(d) { return d.target.x; })
 		    .attr("y2", function(d) { return d.target.y; });
+
+		linkLabels
+		    .attr("x", function(d) { return d.source.x + d.target.x })
+		    .attr("y", function(d) { return d.source.y + d.target.y });
 
 		node.attr("transform", function(d) {
 		    return "translate(" + d.x + "," + d.y + ")";
