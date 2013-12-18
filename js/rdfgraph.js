@@ -23,20 +23,33 @@ $.extend({
 	    	.data(data.links)
 	    	.enter().append("line")
 	    	.attr("class", "link")
-	    	.style("stroke-width", function(d) { return 5; });
+
+	    // link.append("text")
+	    // 	.attr("dy", ".3em")
+	    //     .attr("class", "label")
+	    // 	.style("text-anchor", "middle")
+	    // 	.text(function(d) { return "testtest"; });
 
 	    var node = svg.selectAll(".node")
 		.data(data.nodes)
 		.enter().append("g")
-		.attr("class", "node")
+		.attr("class", function(d) { return "node " + d.styles.join(" ") || ''; })
 		.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
 
 	    node.append("title")
 		.text(function(d) { return d.label; });
+	    
 
-	    node.append("circle")
+	    var res = node.filter(".resource"),
+		attrs = node.filter(".attribute");
+
+	    res.append("circle")
 		.attr("r", function(d) { return 50; })
-		.style("fill", function(d) { return color(d.label); });
+
+	    attrs.append("rect")
+		.attr("x", -50).attr("y", -50)
+		.attr("rx", 10).attr("ry", 10)
+		.attr("width", 100).attr("height", 100)
 
 	    node.append("text")
 		.attr("dy", ".3em")

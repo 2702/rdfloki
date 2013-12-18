@@ -234,9 +234,28 @@ code {
   stroke-width: 1.5px;
 }
 
+.attribute > rect {
+    fill: #FFCE7A;
+}
+
+.resource > circle {
+    fill: #BFFF7A;
+    transition: fill .4s ease;
+}
+
+.root > circle {
+    fill: #BEA8FF;
+}
+
+.resource > circle:hover {
+    fill: #8BFF0F;
+    cursor: pointer;
+}
+
 .link {
   stroke: #999;
   stroke-opacity: .6;
+  stroke-width: 3;
 }
 
 .label {
