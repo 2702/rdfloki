@@ -229,46 +229,74 @@ code {
 }
 
 
+svg .nodeGroup a:hover {
+   text-decoration: none;
+}
+
 .nodeGroup {
-  font-size: 15px;
-  font-family: monospace;
-  stroke: #fff;
-  stroke-width: 1.5px;
+
 }
 
-.attribute > .node {
-    fill: #FFCE7A;
+.node {
+    stroke: white;
+    stroke-width: 3px;
 }
 
-.resource > .node {
-    fill: #BFFF7A;
-    transition: fill .4s ease;
+.attribute .node {
+    fill: #699CCA;
 }
 
-.root > .node {
-    fill: #BEA8FF;
+.attribute:hover text {
+    text-decoration: none;
 }
 
-.resource > .node:hover {
-    fill: #8BFF0F;
+.resource .node {
+    fill: #4BB249;
+    /* stroke: #FFF; */
+    /* stroke-width: 7px; */
+    transition: transform .2s ease;
+}
+
+.root .node {
+    fill: #999;
+}
+
+.resource:hover .node {
+    stroke-width: 0px;
     cursor: pointer;
+    transform: scale(1.05);
+}
+
+.nodeLabel {
+    font-size: 15px;
+    font-family: monospace;
+    font-weigh: bolder;
+    stroke: white;
+    stroke-width: 1px;
+    fill: white;
+}
+
+.linkLabel {
+    stroke: white;
+    stroke-opacity: .5;
+    stroke-width: 0.3px;
+    fill: black;
 }
 
 .link {
   stroke: #999;
   stroke-opacity: .6;
-  stroke-width: 3;
+  stroke-width: 3px;;
+  transition: all .4s ease;
 }
 
-.nodeLabel {
-    stroke: white;
-    stroke-width: 0.3px;
-    fill: black;
+.linkGroup:hover .linkLabel {
+    text-decoration: underline;
+    cursor: default;
 }
 
-.linkLabel {
-    font-size: 1em;
-    stroke: white;
-    stroke-width: 0.3px;
-    fill: black;
+.linkGroup:hover .link {
+    stroke: #4BB249;
+    stroke-width: 4px;
+    stroke-opacity: 1;
 }

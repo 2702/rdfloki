@@ -1,12 +1,11 @@
-var width = 960,
-    height = 500;
-
 var color = d3.scale.category20();
 
 $.extend({
     rdfGraph: {
 
         MAX_NODE_LABEL_WIDTH: 20,
+        WIDTH: 960,
+        HEIGHT: 500,
 
 	draw: function(data) {
             this._prepareData(data);
@@ -14,12 +13,26 @@ $.extend({
             this._initLinks(data);
             this._initNodes(data);
             this._initLinkLabels(data);
-            this._bindLayout();
+
+            var n = data.nodes.length;
+
+            this.layout.start();
+            for (var i = n * 5; i > 0; --i) this.layout.tick();
+            this.layout.stop();
+
+            // Center the nodes in the middle.
+            var ox = 0, oy = 0;
+            data.nodes.forEach(function(d) { ox += d.x, oy += d.y; });
+            ox = ox / n - this.WIDTH / 2, oy = oy / n - this.HEIGHT / 2;
+            data.nodes.forEach(function(d) { d.x -= ox, d.y -= oy; });
+
+            this._positionEls();
+
 	},
 
         _prepareData: function(data) {
             function trim(s, n) {
-                if (s.length > n - 3) {
+                if (s.length > n) {
                     return s.substring(0, n - 3) + '...';
                 }
                 return s;
@@ -42,15 +55,14 @@ $.extend({
             this.layout = d3.layout.force()
 		.charge(-2000)
 		.linkDistance(200)
-		.size([width, height]);
+		.size([this.WIDTH, this.HEIGHT]);
 
 	    this.layout.nodes(data.nodes)
-	    	.links(data.links)
-	    	.start();
+	    	.links(data.links);
 
 	    this.svg = d3.select("body").append("svg")
-		.attr("width", width)
-		.attr("height", height);
+		.attr("width", this.WIDTH)
+		.attr("height", this.HEIGHT);
         },
 
         _initNodes: function (data) {
@@ -60,20 +72,23 @@ $.extend({
 		.attr("class", function(d) { return "nodeGroup " + d.styles.join(" ") || ''; })
 		.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
 
+            var nodeHref = node
+                .append("a").attr("xlink:href", function(d) { return d.url; });
+
+
 	    node.append("title")
 		.text(function(d) { return d.label; });
 
-	    node.append("text")
+	    nodeHref.append("text")
 		.attr("dy", ".3em")
 	        .attr("class", "nodeLabel")
-                .attr("xlink:href", function(d) { return d.url; })
 		.style("text-anchor", "middle")
 		.text(function(d) { return d.shortLabel; })
                 .each(function(d, i) {
                     d.width = this.getComputedTextLength() + 30;
                 });
 
-	    node.filter(".attribute").insert("rect", "text")
+	    node.filter(".attribute").selectAll("a").insert("rect", "text")
                 .attr("class", "node")
 		.attr("x", function(d) { return -d.width / 2; })
                 .attr("y", '-2em')
@@ -81,7 +96,7 @@ $.extend({
 		.attr("width", function(d) { return d.width; })
                 .attr("height", '4em');
 
-	    node.filter(".resource").insert("ellipse", "text")
+	    node.filter(".resource").selectAll("a").insert("ellipse", "text")
                 .attr("class", "node")
 		.attr("rx", function(d) { return d.width / 2; })
                 .attr("ry", function(d) { return '2em'; })
@@ -94,16 +109,19 @@ $.extend({
         },
 
         _initLinks: function(data) {
-	    this.link = this.svg.selectAll(".link")
-	    	.data(data.links)
-	    	.enter().append("line")
+            this.linkGroups = this.svg.selectAll(".link")
+                .data(data.links)
+                .enter()
+                .append("g")
+                .attr("class", "linkGroup")
+                .attr("title", function(d) { return d.label; });
+
+	    this.link = this.linkGroups.append("line")
 	    	.attr("class", "link");
         },
 
-        _initLinkLabels: function(data) {
-	    this.linkLabels = this.svg.selectAll(".linkLabel")
-	    	.data(data.links)
-	    	.enter().append("text")
+        _initLinkLabels: function (data) {
+	    this.linkLabels = this.linkGroups.append("text")
 		.attr("dy", ".3em")
 	        .attr("class", "linkLabel")
 	    	.style("text-anchor", "middle")
@@ -111,26 +129,31 @@ $.extend({
         },
 
         _bindLayout: function() {
+            var graph = this;
+
+	    this.layout.on("tick", function() {
+                graph._positionEls();
+	    });
+
+        },
+
+        _positionEls: function() {
             var node = this.node,
                 link = this.link,
                 linkLabels = this.linkLabels;
 
-	    this.layout.on("tick", function() {
+	    link.attr("x1", function(d) { return d.source.x; })
+		.attr("y1", function(d) { return d.source.y; })
+		.attr("x2", function(d) { return d.target.x; })
+		.attr("y2", function(d) { return d.target.y; });
 
-		link.attr("x1", function(d) { return d.source.x; })
-		    .attr("y1", function(d) { return d.source.y; })
-		    .attr("x2", function(d) { return d.target.x; })
-		    .attr("y2", function(d) { return d.target.y; });
+	    linkLabels
+		.attr("x", function(d) { return (d.source.x + d.target.x) / 2; })
+		.attr("y", function(d) { return (d.source.y + d.target.y) / 2; });
 
-		linkLabels
-		    .attr("x", function(d) { return (d.source.x + d.target.x) / 2; })
-		    .attr("y", function(d) { return (d.source.y + d.target.y) / 2; });
-
-		node.attr("transform", function(d) {
-		    return "translate(" + d.x + "," + d.y + ")";
-		});
+	    node.attr("transform", function(d) {
+		return "translate(" + d.x + "," + d.y + ")";
 	    });
-
         }
     }
 });
