@@ -1,0 +1,16 @@
+<?php
+/**
+ * english language file for rdfloki plugin
+ *
+ * @author Krzysztof Mirek <krzysztof.mirek@gmail.com>
+ */
+
+// keys need to match the config setting name
+// $lang['fixme'] = 'FIXME';
+
+$lang['rdfxml-defaultShow'] = 'Rozwiń graf po załadowaniu strony';
+$lang['rdfxml-containerSelector'] = 'Selektor jQuery zawierający kontener z grafem';
+$lang['rdfxml-hideExportButton'] = 'Ukryj przycisk "Export to RDF" (z wtyczki Loki). Ten parametr chowa element określony selektorem w dalszej części konfiguracji';
+$lang['rdfxml-exportButtonSelector'] = 'Selektor jQuery przycisku "Export to RDF" (z wtyczki Loki)';
+
+//Setup VIM: ex: et ts=4 :

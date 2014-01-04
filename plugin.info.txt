@@ -1,0 +1,7 @@
+base   rdfloki
+author Krzysztof Mirek
+email  krzysztof.mirek@gmail.com
+date   2014-01-04
+name   rdfloki plugin
+desc   Generate graph using RDF/XML
+url    http://samplesite.com
