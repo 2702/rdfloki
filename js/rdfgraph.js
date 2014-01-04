@@ -53,19 +53,19 @@ $.extend({
                 svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
             }
 
-	    svg = this.svg = d3.select(selector).append("svg")
+	    svg = d3.select(selector).append("svg")
                 .attr("class", "rdfgraph")
 		.attr("width", width)
 		.attr("height", height)
                 .append("g")
-                .call(d3.behavior.zoom().scaleExtent([0.5, 1]).on("zoom", zoom))
-                .append("g");
+                .call(d3.behavior.zoom().scaleExtent([0.5, 1]).on("zoom", zoom));
 
             svg.append("rect")
                 .attr("class", "overlay")
                 .attr("width", width)
-                .attr("height", height);
+                .attr("height", height)
 
+            svg = this.svg = svg.append("g");
         },
 
         _initNodes: function (data) {
