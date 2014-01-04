@@ -229,25 +229,27 @@ code {
 }
 
 
-.node {
+.nodeGroup {
+  font-size: 15px;
+  font-family: monospace;
   stroke: #fff;
   stroke-width: 1.5px;
 }
 
-.attribute > rect {
+.attribute > .node {
     fill: #FFCE7A;
 }
 
-.resource > circle {
+.resource > .node {
     fill: #BFFF7A;
     transition: fill .4s ease;
 }
 
-.root > circle {
+.root > .node {
     fill: #BEA8FF;
 }
 
-.resource > circle:hover {
+.resource > .node:hover {
     fill: #8BFF0F;
     cursor: pointer;
 }
@@ -258,8 +260,15 @@ code {
   stroke-width: 3;
 }
 
-.label {
-    stroke: black;
-    stroke-width: 0.5px;
-    color: white;
+.nodeLabel {
+    stroke: white;
+    stroke-width: 0.3px;
+    fill: black;
+}
+
+.linkLabel {
+    font-size: 1em;
+    stroke: white;
+    stroke-width: 0.3px;
+    fill: black;
 }
