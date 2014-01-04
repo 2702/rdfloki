@@ -20,7 +20,7 @@ $(function() {
     };
 
     function draw(graphData) {
-	$.rdfGraph.draw(graphData);
+	$.rdfGraph.draw('#graphContainer', graphData);
     };
 
     $parse.click(function() {

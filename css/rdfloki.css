@@ -1,42 +1,48 @@
-svg .nodeGroup a:hover {
+svg.rdfgraph {
+    border: 3px solid grey;
+    border-radius: 3px;
+
+}
+
+svg.rdfgraph .nodeGroup a:hover {
    text-decoration: none;
 }
 
-.nodeGroup {
+.rdfgraph .nodeGroup {
 
 }
 
-.node {
+.rdfgraph .node {
     stroke: white;
     stroke-width: 3px;
 }
 
-.attribute .node {
+.rdfgraph .attribute .node {
     fill: #699CCA;
 }
 
-.attribute:hover text {
+.rdfgraph .attribute:hover text {
     cursor: default;
     text-decoration: none;
 }
 
-.resource .node {
+.rdfgraph .resource .node {
     fill: #4BB249;
     /* stroke: #FFF; */
     /* stroke-width: 7px; */
     transition: transform .2s ease;
 }
 
-.root .node {
+.rdfgraph .root .node {
     fill: #999;
 }
 
-.resource:hover .node {
+.rdfgraph .resource:hover .node {
     cursor: pointer;
     transform: scale(1.05);
 }
 
-.nodeLabel {
+.rdfgraph .nodeLabel {
     font-size: 15px;
     font-family: monospace;
     font-weigh: bolder;
@@ -45,14 +51,14 @@ svg .nodeGroup a:hover {
     fill: white;
 }
 
-.linkLabel {
+.rdfgraph .linkLabel {
     stroke: white;
     stroke-opacity: .5;
     stroke-width: 0.3px;
     fill: black;
 }
 
-.linkLabelShadow {
+.rdfgraph .linkLabelShadow {
     stroke: white;
     stroke-opacity: .8;
     stroke-width: 5px;
@@ -60,25 +66,26 @@ svg .nodeGroup a:hover {
     cursor: default;
 }
 
-.link {
+.rdfgraph .link {
   stroke: #999;
   stroke-opacity: .6;
   stroke-width: 3px;;
   transition: all .4s ease;
 }
 
-.linkGroup:hover .linkLabel {
+.rdfgraph .linkGroup:hover .linkLabel {
     text-decoration: underline;
     cursor: default;
 }
 
-.linkGroup:hover .link {
+.rdfgraph .linkGroup:hover .link {
     stroke: #4BB249;
     stroke-width: 4px;
     stroke-opacity: 1;
 }
 
-.overlay {
+.rdfgraph .overlay {
   fill: none;
   pointer-events: all;
+  cursor: move;
 }

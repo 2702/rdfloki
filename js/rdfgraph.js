@@ -1,5 +1,3 @@
-var color = d3.scale.category20();
-
 $.extend({
     rdfGraph: {
 
@@ -7,9 +5,9 @@ $.extend({
         WIDTH: 960,
         HEIGHT: 500,
 
-	draw: function(data) {
+	draw: function(selector, data) {
             this._prepareData(data);
-            this._initLayout(data);
+            this._initLayout(selector, data);
             this._initLinks(data);
             this._initNodes(data);
             this._initLinkLabels(data);
@@ -38,7 +36,7 @@ $.extend({
             return data;
         },
 
-        _initLayout: function(data) {
+        _initLayout: function(selector, data) {
             var width = this.WIDTH,
                 height = this.HEIGHT,
                 svg;
@@ -55,18 +53,19 @@ $.extend({
                 svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
             }
 
-	    svg = this.svg = d3.select("body").append("svg")
+	    svg = d3.select(selector).append("svg")
+                .attr("class", "rdfgraph")
 		.attr("width", width)
 		.attr("height", height)
                 .append("g")
-                .call(d3.behavior.zoom().scaleExtent([0.5, 1]).on("zoom", zoom))
-                .append("g");
+                .call(d3.behavior.zoom().scaleExtent([0.5, 1]).on("zoom", zoom));
 
             svg.append("rect")
                 .attr("class", "overlay")
                 .attr("width", width)
-                .attr("height", height);
+                .attr("height", height)
 
+            svg = this.svg = svg.append("g");
         },
 
         _initNodes: function (data) {
