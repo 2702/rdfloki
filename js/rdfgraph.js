@@ -13,21 +13,8 @@ $.extend({
             this._initLinks(data);
             this._initNodes(data);
             this._initLinkLabels(data);
-
-            var n = data.nodes.length;
-
-            this.layout.start();
-            for (var i = n * 5; i > 0; --i) this.layout.tick();
-            this.layout.stop();
-
-            // Center the nodes in the middle.
-            var ox = 0, oy = 0;
-            data.nodes.forEach(function(d) { ox += d.x, oy += d.y; });
-            ox = ox / n - this.WIDTH / 2, oy = oy / n - this.HEIGHT / 2;
-            data.nodes.forEach(function(d) { d.x -= ox, d.y -= oy; });
-
+            this._centerEls(data);
             this._positionEls();
-
 	},
 
         _prepareData: function(data) {
@@ -52,6 +39,10 @@ $.extend({
         },
 
         _initLayout: function(data) {
+            var width = this.WIDTH,
+                height = this.HEIGHT,
+                svg;
+
             this.layout = d3.layout.force()
 		.charge(-2000)
 		.linkDistance(200)
@@ -60,9 +51,22 @@ $.extend({
 	    this.layout.nodes(data.nodes)
 	    	.links(data.links);
 
-	    this.svg = d3.select("body").append("svg")
-		.attr("width", this.WIDTH)
-		.attr("height", this.HEIGHT);
+            function zoom() {
+                svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+            }
+
+	    svg = this.svg = d3.select("body").append("svg")
+		.attr("width", width)
+		.attr("height", height)
+                .append("g")
+                .call(d3.behavior.zoom().scaleExtent([0.5, 1]).on("zoom", zoom))
+                .append("g");
+
+            svg.append("rect")
+                .attr("class", "overlay")
+                .attr("width", width)
+                .attr("height", height);
+
         },
 
         _initNodes: function (data) {
@@ -70,7 +74,6 @@ $.extend({
 		.data(data.nodes)
 		.enter().append("g")
 		.attr("class", function(d) { return "nodeGroup " + d.styles.join(" ") || ''; })
-		.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
 
             var nodeHref = node
                 .append("a").attr("xlink:href", function(d) { return d.url; });
@@ -154,6 +157,20 @@ $.extend({
 	    node.attr("transform", function(d) {
 		return "translate(" + d.x + "," + d.y + ")";
 	    });
+        },
+
+        _centerEls: function(data) {
+            // Center the nodes in the middle.
+            var n = data.nodes.length;
+
+            this.layout.start();
+            for (var i = n * 5; i > 0; --i) this.layout.tick();
+            this.layout.stop();
+
+            var ox = 0, oy = 0;
+            data.nodes.forEach(function(d) { ox += d.x, oy += d.y; });
+            ox = ox / n - this.WIDTH / 2, oy = oy / n - this.HEIGHT / 2;
+            data.nodes.forEach(function(d) { d.x -= ox, d.y -= oy; });
         }
     }
 });

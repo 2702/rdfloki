@@ -247,6 +247,7 @@ svg .nodeGroup a:hover {
 }
 
 .attribute:hover text {
+    cursor: default;
     text-decoration: none;
 }
 
@@ -299,4 +300,9 @@ svg .nodeGroup a:hover {
     stroke: #4BB249;
     stroke-width: 4px;
     stroke-opacity: 1;
+}
+
+.overlay {
+  fill: none;
+  pointer-events: all;
 }
