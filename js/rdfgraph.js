@@ -56,6 +56,7 @@ $.extend({
             }
 
 	    svg = this.svg = d3.select("body").append("svg")
+                .attr("class", "rdfgraph")
 		.attr("width", width)
 		.attr("height", height)
                 .append("g")
