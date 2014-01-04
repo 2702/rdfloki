@@ -5,9 +5,9 @@ $.extend({
         WIDTH: 960,
         HEIGHT: 500,
 
-	draw: function(data) {
+	draw: function(selector, data) {
             this._prepareData(data);
-            this._initLayout(data);
+            this._initLayout(selector, data);
             this._initLinks(data);
             this._initNodes(data);
             this._initLinkLabels(data);
@@ -36,7 +36,7 @@ $.extend({
             return data;
         },
 
-        _initLayout: function(data) {
+        _initLayout: function(selector, data) {
             var width = this.WIDTH,
                 height = this.HEIGHT,
                 svg;
@@ -53,7 +53,7 @@ $.extend({
                 svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
             }
 
-	    svg = this.svg = d3.select("body").append("svg")
+	    svg = this.svg = d3.select(selector).append("svg")
                 .attr("class", "rdfgraph")
 		.attr("width", width)
 		.attr("height", height)
