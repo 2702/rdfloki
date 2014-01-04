@@ -1,5 +1,3 @@
-var color = d3.scale.category20();
-
 $.extend({
     rdfGraph: {
 
