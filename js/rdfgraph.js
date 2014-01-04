@@ -124,11 +124,20 @@ $.extend({
         },
 
         _initLinkLabels: function (data) {
-	    this.linkLabels = this.linkGroups.append("text")
+            this.linkGroups.append("text")
+		.attr("dy", ".3em")
+	        .attr("class", "linkLabelShadow")
+	    	.style("text-anchor", "middle")
+	    	.text(function(d) { return d.label; });
+
+	    this.linkGroups.append("text")
 		.attr("dy", ".3em")
 	        .attr("class", "linkLabel")
 	    	.style("text-anchor", "middle")
 	    	.text(function(d) { return d.label; });
+
+            this.linkLabels = this.linkGroups.selectAll("text");
+
         },
 
         _bindLayout: function() {
