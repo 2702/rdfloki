@@ -50,5 +50,3 @@ class action_plugin_rdfloki extends DokuWiki_Action_Plugin {
       return file_get_contents('data/media/'. preg_replace('/:/', '/', $namespaceId).'.rdf.xml');
     }
 }
-
-// vim:ts=4:sw=4:et:
