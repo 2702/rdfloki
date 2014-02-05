@@ -1,27 +1,42 @@
-rdfloki Plugin for DokuWiki
+RDFLoki is plugin for DokuWiki which cooperates with Loki (http://loki.ia.agh.edu.pl/). It generates navigable graph which uses RDF/XML.
 
-Generate graph using RDF/XML
+Simply unpack sources to $DOKU_HOME/lib/plugins and plugin will start working.
 
-All documentation for this plugin can be found at
-http://samplesite.com
+problems and issues we overcame:
 
-If you install this plugin manually, make sure it is installed in
-lib/plugins/rdfloki/ - if the folder is called different it
-will not work!
+data transmission PHP -> JS
+autoloading script.js, not loading other scripts
+including JS scripts does not always work due to cache problems /* DOKUWIKI:include_once scripts/test.js */
+documentation should mention that while adding multiple JS files every file should be in separate commented line: /* DOKUWIKI:include_once scripts/test1.js / / DOKUWIKI:include_once scripts/test2.js / not / DOKUWIKI:include_once scripts/test1.js DOKUWIKI:include_once scripts/test2.js */
+invalidating cache - the most painfull problem - still persists and is the most significant slowdown factor
+configuration on PHP side (including i18n)
+correct graph z-index order
+adjust nodes size to label length
+static graph generation (d3 framework creates dynamic)
+zoom and pan in graph
+graph styling
+graph animations (enlarge nodes onhover and highlight edges)
+code cleanups
+Configuration on php side:
 
-Please refer to http://www.dokuwiki.org/plugins for additional info
-on how to install plugins in DokuWiki.
+should hide "export to RDF" button if exists?
+"export to RDF" selector
+container css class or id where to add graph
+default visibility: show/hide
+Future works:
 
-----
-Copyright (C) Krzysztof Mirek <krzysztof.mirek@gmail.com>
+add dependency on Loki
+implement configuration on JS side (already implemented in PHP) - 1. show/hide button, 2. hide 'export to RDF' button
+correct SVG width to be 100% (problem with internal container)
+determine on which pages graph should be displayed (config?/extra tag?)
+z-index in graph
+incorporate our plugin with Loki
+rdfxml calls loki rdfxml generation when file is not present (optional - see below)
+Future works on RDF XML generator(loki):
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; version 2 of the License
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-See the COPYING file in your DokuWiki folder for details
+generate XML on save, not on click (remove all buttons and redirect page)
+use configured URLs
+Known issues:
+chrome has problems with title on edges and onhoover in SVG
+valid URLs generation can cause problems - it's wiki configuration issue 
+cache problems with wiki
