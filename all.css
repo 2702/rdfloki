@@ -92,6 +92,7 @@ svg.rdfgraph .nodeGroup a:hover {
     height: 600px;
     border: 3px solid grey;
     border-radius: 3px;
+    margin-top: 10px;
 }
 
 

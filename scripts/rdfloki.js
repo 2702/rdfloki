@@ -16,14 +16,14 @@ jQuery(function() {
     function initGraphContainer(visible) {
         $graphContainer = jQuery(
             '<div id="' + graphContainerId + '">' +
-                '<a id="graphDownload" href="#">download</a>' +
+                '<a id="graphDownload" class="button" href="#">download</a>' +
             '</div>').appendTo($containerWrapper);
     };
 
     function initGraphToggler(initial) {
         var toggler = jQuery(
-            '<a id="graphVisibleToggle" href="#">hide graph</a>')
-                .appendTo($containerWrapper);
+            '<a id="graphVisibleToggle" class="button" href="#">hide graph</a>')
+                .prependTo($containerWrapper);
 
         toggler.click(function() {
             $graphContainer.toggle();
