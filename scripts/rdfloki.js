@@ -13,7 +13,7 @@ jQuery(function() {
 
     function initContainer() {
 	jQuerycontainerWrapper.append(
-            '<div id="#graphContainer">' +
+            '<div id="graphContainer">' +
                 '<a id="graphDownload">download</a>' +
             '</div>');
     };
