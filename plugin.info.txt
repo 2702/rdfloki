@@ -1,7 +1,7 @@
 base   rdfloki
-author Krzysztof Mirek
+author Krzysztof Mirek, Marcin Biernat
 email  krzysztof.mirek@gmail.com
 date   2014-01-04
 name   rdfloki plugin
-desc   Generate graph using RDF/XML
-url    http://samplesite.com
+desc   Generate graph using RDF/XML. Usable only with Loki plugin!
+url    https://github.com/2702/rdfloki
