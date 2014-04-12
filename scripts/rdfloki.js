@@ -1,11 +1,5 @@
 jQuery(function() {
 
-    // mockup settings
-    if (JSINFO && JSINFO.rdfXmlConfig) {
-        JSINFO.rdfXmlConfig.graphEnabled = true;
-        JSINFO.rdfXmlConfig.graphVisible = true;
-    }
-
     var graphEnabled = JSINFO &&
             JSINFO.rdfXmlConfig &&
             JSINFO.rdfXmlConfig.graphEnabled;

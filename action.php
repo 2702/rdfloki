@@ -34,12 +34,20 @@ class action_plugin_rdfloki extends DokuWiki_Action_Plugin {
 
     public function handle(Doku_Event &$event, $param) {
       global $JSINFO;
-      $JSINFO['rdfXmlConfig'] = $this->readConfig();
-      $JSINFO['rdfXml'] = $this->readRdfXml($JSINFO['id']);		      
+      global $ACT;
+      $configArray = $this->readConfig();
+      $rdfxml = $this->readRdfXml($JSINFO['id']);
+      $JSINFO['rdfXml'] = $rdfxml;
+      if ($ACT === "show" && trim($rdfxml) !== '' && isset($rdfxml))
+          $configArray['graphEnabled'] = true;
+      else
+          $configArray['graphEnabled'] = false;
+      
+      $JSINFO['rdfXmlConfig'] = $configArray;
     }
 
     private function readConfig() {
-	return array( 'defaultShow' => $this->getConf('rdfxml-defaultShow'),
+	return array( 'graphVisible' => $this->getConf('rdfxml-defaultShow') === '0' ? false : true,
 		      'containerSelector' => $this->getConf('rdfxml-containerSelector'),
 	);
     }
