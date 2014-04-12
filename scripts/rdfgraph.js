@@ -65,6 +65,7 @@ jQuery.extend({
 
             svg.append("rect")
                 .attr("class", "overlay")
+                .attr('fill', 'none')
                 .attr("width", '100%')
                 .attr("height", initialHeight)
                 .call(d3.behavior.zoom().scaleExtent([0.5, 1]).on("zoom", zoom));
@@ -98,6 +99,9 @@ jQuery.extend({
 	    nodeHref.append("text")
 		.attr("dy", ".3em")
 	        .attr("class", "nodeLabel")
+                .attr('stroke', 'white')
+                .attr('stroke-width', '1px')
+                .attr('fill', 'white')
 		.style("text-anchor", "middle")
 		.text(function(d) { return d.shortLabel; })
                 .each(function(d, i) {
@@ -106,6 +110,7 @@ jQuery.extend({
 
 	    node.filter(".attribute").selectAll("a").insert("rect", "text")
                 .attr("class", "node")
+                .attr('fill', '#699CCA')
 		.attr("x", function(d) { return -d.width / 2; })
                 .attr("y", '-2em')
 		.attr("rx", 10).attr("ry", 10)
@@ -114,12 +119,17 @@ jQuery.extend({
 
 	    node.filter(".resource").selectAll("a").insert("ellipse", "text")
                 .attr("class", "node")
+                .attr('fill', '#4BB249')
 		.attr("rx", function(d) { return d.width / 2; })
                 .attr("ry", function(d) { return '2em'; })
                 .attr("height", 30)
 		.attr("width", function(d) {
                     return Math.min(d.width, 30);
                 });
+
+            node
+                .attr('stroke', 'white')
+                .attr('stroke-width', '3px');
 
             node.call(drag);
 
@@ -132,6 +142,9 @@ jQuery.extend({
                 .enter()
                 .append("g")
                 .attr("class", "linkGroup")
+                .attr('stroke', '#999')
+                .attr('stroke-opacity', '.6')
+                .attr('stroke-width', '3px')
                 .attr("title", function(d) { return d.label; });
 
 	    this.link = this.linkGroups.append("line")
@@ -142,12 +155,20 @@ jQuery.extend({
             this.linkGroups.append("text")
 		.attr("dy", ".3em")
 	        .attr("class", "linkLabelShadow")
+                .attr('stroke', 'white')
+                .attr('stroke-opacity', '.8')
+                .attr('stroke-width', '5px')
+                .attr('fill', 'white')
 	    	.style("text-anchor", "middle")
 	    	.text(function(d) { return d.label; });
 
 	    this.linkGroups.append("text")
 		.attr("dy", ".3em")
 	        .attr("class", "linkLabel")
+                .attr('stroke', 'white')
+                .attr('stroke-opacity', '.5')
+                .attr('stroke-width', '0.3px')
+                .attr('fill', 'black')
 	    	.style("text-anchor", "middle")
 	    	.text(function(d) { return d.label; });
 

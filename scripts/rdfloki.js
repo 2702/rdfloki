@@ -1,33 +1,83 @@
 jQuery(function() {
-    var jQuerycontainerWrapper = jQuery(JSINFO.rdfXmlConfig.containerSelector);
+
+    // mockup settings
+    if (JSINFO && JSINFO.rdfXmlConfig) {
+        JSINFO.rdfXmlConfig.graphEnabled = true;
+        JSINFO.rdfXmlConfig.graphVisible = true;
+    }
+
+    var graphEnabled = JSINFO &&
+            JSINFO.rdfXmlConfig &&
+            JSINFO.rdfXmlConfig.graphEnabled;
+
+    if (!graphEnabled) {
+        return;
+    }
+
+    var $containerWrapper = jQuery(JSINFO.rdfXmlConfig.containerSelector),
+        graphContainerId = 'graphContainer',
+        graphInitialized = false,
+        downloadFilename = JSINFO.id.replace(/:/g, '_'),
+        rdfXml = JSINFO.rdfXml,
+        graphVisible = JSINFO.rdfXmlConfig.graphVisible,
+        $graphContainer;
 
     function parse() {
-	var data = jQuery.rdfParser.parse(JSINFO.rdfXml),
+	var data = jQuery.rdfParser.parse(rdfXml),
 	    graphData = jQuery.rdfGrapher.parse(data);
 	return graphData;
     };
 
     function draw(graphData) {
-	jQuery.rdfGraph.draw("#graphContainer", graphData);
+	jQuery.rdfGraph.draw('#' + graphContainerId, graphData);
     };
 
-    function initContainer() {
-	jQuerycontainerWrapper.append(
-            '<div id="#graphContainer">' +
-                '<a id="graphDownload">download</a>' +
-            '</div>');
+    function initGraph() {
+        graphInitialized = true;
+        draw(parse());
+    }
+
+    function initGraphContainer(visible) {
+        $graphContainer = jQuery(
+            '<div id="' + graphContainerId + '">' +
+                '<a id="graphDownload" class="button" href="#">download</a>' +
+            '</div>').appendTo($containerWrapper);
     };
+
+    function initGraphToggler(initial) {
+        var toggler = jQuery(
+            '<a id="graphVisibleToggle" class="button" href="#">hide graph</a>')
+                .insertBefore($graphContainer);
+
+        toggler.click(function() {
+            $graphContainer.toggle();
+            if ($graphContainer.is(':visible')) {
+                if (!graphInitialized) {
+                    initGraph();
+                }
+                toggler.text('hide graph');
+            } else {
+                toggler.text('show graph');
+            }
+        });
+
+        if (!initial) {
+            toggler.click();
+        }
+    }
 
     function bind() {
         jQuery('#graphDownload').click(function() {
-            // TODO: get svg name
-            SVGCrowbar.download('graph');
-
+            SVGCrowbar.download(downloadFilename);
             return false;
         });
     }
 
-    initContainer();
+    initGraphContainer();
+    initGraphToggler(graphVisible);
     bind();
-    draw(parse());
+
+    if (graphVisible) {
+        initGraph();
+    }
 });
