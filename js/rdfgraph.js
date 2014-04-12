@@ -57,7 +57,6 @@ $.extend({
                 .attr("class", "rdfgraph")
 		.attr("width", width)
 		.attr("height", height)
-                .append("g")
                 .call(d3.behavior.zoom().scaleExtent([0.5, 1]).on("zoom", zoom));
 
             svg.append("rect")
