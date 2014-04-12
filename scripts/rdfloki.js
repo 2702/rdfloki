@@ -1,6 +1,7 @@
 jQuery(function() {
     var $containerWrapper = jQuery(JSINFO.rdfXmlConfig.containerSelector),
         graphContainerId = 'graphContainer',
+        graphInitialized = false,
         $graphContainer;
 
     function parse() {
@@ -12,6 +13,11 @@ jQuery(function() {
     function draw(graphData) {
 	jQuery.rdfGraph.draw('#' + graphContainerId, graphData);
     };
+
+    function initGraph() {
+        graphInitialized = true;
+        draw(parse());
+    }
 
     function initGraphContainer(visible) {
         $graphContainer = jQuery(
@@ -28,6 +34,9 @@ jQuery(function() {
         toggler.click(function() {
             $graphContainer.toggle();
             if ($graphContainer.is(':visible')) {
+                if (!graphInitialized) {
+                    initGraph();
+                }
                 toggler.text('hide graph');
             } else {
                 toggler.text('show graph');
@@ -59,6 +68,9 @@ jQuery(function() {
         initGraphContainer();
         initGraphToggler(JSINFO.rdfXmlConfig.graphVisible);
         bind();
-        draw(parse());
+
+        if (JSINFO.rdfXmlConfig.graphVisible) {
+            initGraph();
+        }
     }
 });
