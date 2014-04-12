@@ -2,7 +2,10 @@
 ;
 /* DOKUWIKI:include scripts/sax.js */
 ;
-/* DOKUWIKI:include scripts/xmldoc.js */ 
+/* DOKUWIKI:include scripts/xmldoc.js */
+;
+
+/* DOKUWIKI:include scripts/d3-svg-download.js */
 ;
 
 /* DOKUWIKI:include scripts/rdfparser.js */
