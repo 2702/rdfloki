@@ -36,7 +36,7 @@ class action_plugin_rdfloki extends DokuWiki_Action_Plugin {
       global $JSINFO;
       global $ACT;
       $configArray = $this->readConfig();
-      $rdfxml = $this->readRdfXml($JSINFO['id']);
+      $rdfxml = $this->fixUrls($this->readRdfXml($JSINFO['id']));
       $JSINFO['rdfXml'] = $rdfxml;
       if ($ACT === "show" && trim($rdfxml) !== '' && isset($rdfxml))
           $configArray['graphEnabled'] = true;
@@ -54,5 +54,9 @@ class action_plugin_rdfloki extends DokuWiki_Action_Plugin {
     
     private function readRdfXml($namespaceId) {
       return file_get_contents('data/media/'. preg_replace('/:/', '/', $namespaceId).'.rdf.xml');
+    }
+
+    public function fixUrls($rdfXML) {
+        return str_replace('special:uriresolve:','', $rdfXML);
     }
 }
