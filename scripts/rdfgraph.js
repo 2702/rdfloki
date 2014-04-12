@@ -45,7 +45,7 @@ jQuery.extend({
             data.initialHeight = initialHeight;
 
             this.layout = d3.layout.force()
-		.charge(-2000)
+		.charge(function(d) {return -400 * d.shortLabel.length; })
 		.linkDistance(200)
 		.size([initialWidth, initialHeight]);
 
