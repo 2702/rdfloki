@@ -22,8 +22,8 @@ jQuery(function() {
 
     function initGraphToggler(initial) {
         var toggler = jQuery(
-            '<a id="graphVisibleToggle" href="#">toggle graph</a>')
-                .appendTo($graphContainer);
+            '<a id="graphVisibleToggle" href="#">hide graph</a>')
+                .appendTo($containerWrapper);
 
         toggler.click(function() {
             $graphContainer.toggle();
