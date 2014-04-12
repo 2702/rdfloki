@@ -2,7 +2,6 @@ jQuery.extend({
     rdfGraph: {
 
         MAX_NODE_LABEL_WIDTH: 20,
-        WIDTH: 960,
         HEIGHT: 500,
 
 	draw: function(selector, data) {
@@ -37,14 +36,18 @@ jQuery.extend({
         },
 
         _initLayout: function(selector, data) {
-            var width = this.WIDTH,
-                height = this.HEIGHT,
+            var container = d3.select(selector),
+                initialWidth = parseInt(container.style('width')),
+                initialHeight = parseInt(container.style('height')),
                 svg;
+
+            data.initialWidth = initialWidth;
+            data.initialHeight = initialHeight;
 
             this.layout = d3.layout.force()
 		.charge(-2000)
 		.linkDistance(200)
-		.size([this.WIDTH, this.HEIGHT]);
+		.size([initialWidth, initialHeight]);
 
 	    this.layout.nodes(data.nodes)
 	    	.links(data.links);
@@ -53,17 +56,16 @@ jQuery.extend({
                 svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
             }
 
-	    svg = d3.select(selector).append("svg")
+	    svg = container.append("svg")
                 .attr("class", "rdfgraph")
-		.attr("width", width)
-		.attr("height", height)
+		.attr("width", '100%')
                 .append("g")
                 .call(d3.behavior.zoom().scaleExtent([0.5, 1]).on("zoom", zoom));
 
             svg.append("rect")
                 .attr("class", "overlay")
-                .attr("width", width)
-                .attr("height", height)
+                .attr("width", '100%')
+                .attr("height", initialHeight);
 
             svg = this.svg = svg.append("g");
         },
@@ -72,7 +74,7 @@ jQuery.extend({
 	    var node = this.svg.selectAll(".nodeGroup")
 		.data(data.nodes)
 		.enter().append("g")
-		.attr("class", function(d) { return "nodeGroup " + d.styles.join(" ") || ''; })
+		.attr("class", function(d) { return "nodeGroup " + d.styles.join(" ") || ''; });
 
             var nodeHref = node
                 .append("a").attr("xlink:href", function(d) { return d.url; });
@@ -177,7 +179,7 @@ jQuery.extend({
 
             var ox = 0, oy = 0;
             data.nodes.forEach(function(d) { ox += d.x, oy += d.y; });
-            ox = ox / n - this.WIDTH / 2, oy = oy / n - this.HEIGHT / 2;
+            ox = ox / n - data.initialWidth / 2, oy = oy / n - data.initialHeight / 2;
             data.nodes.forEach(function(d) { d.x -= ox, d.y -= oy; });
         }
     }

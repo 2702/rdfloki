@@ -89,3 +89,7 @@ svg.rdfgraph .nodeGroup a:hover {
   pointer-events: all;
   cursor: move;
 }
+
+#graphContainer {
+    height: 600px;
+}
