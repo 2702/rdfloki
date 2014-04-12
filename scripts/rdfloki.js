@@ -23,7 +23,7 @@ jQuery(function() {
     function initGraphToggler(initial) {
         var toggler = jQuery(
             '<a id="graphVisibleToggle" class="button" href="#">hide graph</a>')
-                .prependTo($containerWrapper);
+                .appendTo($containerWrapper);
 
         toggler.click(function() {
             $graphContainer.toggle();
@@ -56,8 +56,8 @@ jQuery(function() {
         JSINFO.rdfXmlConfig &&
         JSINFO.rdfXmlConfig.enableGraph) {
 
-        initGraphContainer();
         initGraphToggler(JSINFO.rdfXmlConfig.graphVisible);
+        initGraphContainer();
         bind();
         draw(parse());
     }
