@@ -59,13 +59,14 @@ jQuery.extend({
 	    svg = container.append("svg")
                 .attr("class", "rdfgraph")
 		.attr("width", '100%')
-                .append("g")
-                .call(d3.behavior.zoom().scaleExtent([0.5, 1]).on("zoom", zoom));
+		.attr("height", initialHeight)
+                .append("g");
 
             svg.append("rect")
                 .attr("class", "overlay")
                 .attr("width", '100%')
-                .attr("height", initialHeight);
+                .attr("height", initialHeight)
+                .call(d3.behavior.zoom().scaleExtent([0.5, 1]).on("zoom", zoom));
 
             svg = this.svg = svg.append("g");
         },
