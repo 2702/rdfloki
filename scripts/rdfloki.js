@@ -1,5 +1,7 @@
 jQuery(function() {
-    var jQuerycontainerWrapper = jQuery(JSINFO.rdfXmlConfig.containerSelector);
+    var $containerWrapper = jQuery(JSINFO.rdfXmlConfig.containerSelector),
+        graphContainerId = '#graphContainer',
+        $graphContainer;
 
     function parse() {
 	var data = jQuery.rdfParser.parse(JSINFO.rdfXml),
@@ -8,15 +10,34 @@ jQuery(function() {
     };
 
     function draw(graphData) {
-	jQuery.rdfGraph.draw("#graphContainer", graphData);
+	jQuery.rdfGraph.draw(graphContainerId, graphData);
     };
 
-    function initContainer() {
-	jQuerycontainerWrapper.append(
-            '<div id="graphContainer">' +
+    function initGraphContainer(visible) {
+        $graphContainer = jQuery(
+            '<div id="' + graphContainerId + '">' +
                 '<a id="graphDownload" href="#">download</a>' +
-            '</div>');
+            '</div>').appendTo($containerWrapper);
     };
+
+    function initGraphToggler(initial) {
+        var toggler = jQuery(
+            '<a id="graphVisibleToggle" href="#">toggle graph</a>')
+                .appendTo($graphContainer);
+
+        toggler.click(function() {
+            $graphContainer.toggle();
+            if ($graphContainer.is(':visible')) {
+                toggler.text('hide graph');
+            } else {
+                toggler.text('show graph');
+            }
+        });
+
+        if (!initial) {
+            toggler.click();
+        }
+    }
 
     function bind() {
         jQuery('#graphDownload').click(function() {
@@ -25,7 +46,19 @@ jQuery(function() {
         });
     }
 
-    initContainer();
-    bind();
-    draw(parse());
+    if (JSINFO && JSINFO.rdfXmlConfig) {
+        // mockup settings
+        JSINFO.rdfXmlConfig.enableGraph = true;
+        JSINFO.rdfXmlConfig.graphVisible = true;
+    }
+
+    if (JSINFO &&
+        JSINFO.rdfXmlConfig &&
+        JSINFO.rdfXmlConfig.enableGraph) {
+
+        initGraphContainer();
+        initGraphToggler(JSINFO.rdfXmlConfig.graphVisible);
+        bind();
+        draw(parse());
+    }
 });
