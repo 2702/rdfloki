@@ -1,10 +1,6 @@
 jQuery(function() {
     var $containerWrapper = jQuery(JSINFO.rdfXmlConfig.containerSelector);
 
-    function dataChanged() {
-	draw(parse());
-    }
-
     function parse() {
 	var data = jQuery.rdfParser.parse(JSINFO.rdfXml),
 	    graphData = jQuery.rdfGrapher.parse(data);
@@ -16,11 +12,22 @@ jQuery(function() {
     };
 
     function initContainer() {
-	var cont = document.createElement('div');
-	cont.id = "graphContainer";
-	$containerWrapper.append(cont);
+	$containerWrapper.append(
+            '<div id="#graphContainer">' +
+                '<a id="graphDownload">download</a>' +
+            '</div>');
     };
 
+    function bind() {
+        $('#graphDownload').click(function() {
+            // TODO: get svg name
+            SVGCrowbar.download('graph');
+
+            return false;
+        });
+    }
+
     initContainer();
-    dataChanged();
+    bind();
+    draw(parse());
 });
