@@ -14,15 +14,13 @@ jQuery(function() {
     function initContainer() {
 	jQuerycontainerWrapper.append(
             '<div id="graphContainer">' +
-                '<a id="graphDownload">download</a>' +
+                '<a id="graphDownload" href="#">download</a>' +
             '</div>');
     };
 
     function bind() {
         jQuery('#graphDownload').click(function() {
-            // TODO: get svg name
-            SVGCrowbar.download('graph');
-
+            SVGCrowbar.download(JSINFO.id.replace(/:/g, '_'));
             return false;
         });
     }
