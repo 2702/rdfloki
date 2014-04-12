@@ -10,12 +10,11 @@ svg.rdfgraph .nodeGroup a:hover {
 }
 
 .rdfgraph .node {
-    stroke: white;
-    stroke-width: 3px;
+
 }
 
 .rdfgraph .attribute .node {
-    fill: #699CCA;
+
 }
 
 .rdfgraph .attribute:hover text {
@@ -24,9 +23,6 @@ svg.rdfgraph .nodeGroup a:hover {
 }
 
 .rdfgraph .resource .node {
-    fill: #4BB249;
-    /* stroke: #FFF; */
-    /* stroke-width: 7px; */
     transition: transform .2s ease;
 }
 
@@ -43,30 +39,17 @@ svg.rdfgraph .nodeGroup a:hover {
     font-size: 15px;
     font-family: monospace;
     font-weigh: bolder;
-    stroke: white;
-    stroke-width: 1px;
-    fill: white;
 }
 
 .rdfgraph .linkLabel {
-    stroke: white;
-    stroke-opacity: .5;
-    stroke-width: 0.3px;
-    fill: black;
+
 }
 
 .rdfgraph .linkLabelShadow {
-    stroke: white;
-    stroke-opacity: .8;
-    stroke-width: 5px;
-    fill: white;
     cursor: default;
 }
 
 .rdfgraph .link {
-  stroke: #999;
-  stroke-opacity: .6;
-  stroke-width: 3px;;
   transition: all .4s ease;
 }
 
