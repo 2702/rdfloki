@@ -1,11 +1,29 @@
 jQuery(function() {
+
+    // mockup settings
+    if (JSINFO && JSINFO.rdfXmlConfig) {
+        JSINFO.rdfXmlConfig.graphEnabled = true;
+        JSINFO.rdfXmlConfig.graphVisible = true;
+    }
+
+    var graphEnabled = JSINFO &&
+            JSINFO.rdfXmlConfig &&
+            JSINFO.rdfXmlConfig.graphEnabled;
+
+    if (!graphEnabled) {
+        return;
+    }
+
     var $containerWrapper = jQuery(JSINFO.rdfXmlConfig.containerSelector),
         graphContainerId = 'graphContainer',
         graphInitialized = false,
+        downloadFilename = JSINFO.id.replace(/:/g, '_'),
+        rdfXml = JSINFO.rdfXml,
+        graphVisible = JSINFO.rdfXmlConfig.graphVisible,
         $graphContainer;
 
     function parse() {
-	var data = jQuery.rdfParser.parse(JSINFO.rdfXml),
+	var data = jQuery.rdfParser.parse(rdfXml),
 	    graphData = jQuery.rdfGrapher.parse(data);
 	return graphData;
     };
@@ -50,27 +68,16 @@ jQuery(function() {
 
     function bind() {
         jQuery('#graphDownload').click(function() {
-            SVGCrowbar.download(JSINFO.id.replace(/:/g, '_'));
+            SVGCrowbar.download(downloadFilename);
             return false;
         });
     }
 
-    if (JSINFO && JSINFO.rdfXmlConfig) {
-        // mockup settings
-        JSINFO.rdfXmlConfig.enableGraph = true;
-        JSINFO.rdfXmlConfig.graphVisible = true;
-    }
+    initGraphContainer();
+    initGraphToggler(graphVisible);
+    bind();
 
-    if (JSINFO &&
-        JSINFO.rdfXmlConfig &&
-        JSINFO.rdfXmlConfig.enableGraph) {
-
-        initGraphContainer();
-        initGraphToggler(JSINFO.rdfXmlConfig.graphVisible);
-        bind();
-
-        if (JSINFO.rdfXmlConfig.graphVisible) {
-            initGraph();
-        }
+    if (graphVisible) {
+        initGraph();
     }
 });
