@@ -18,9 +18,7 @@ class action_plugin_rdfloki extends DokuWiki_Action_Plugin {
      * @return void
      */
     public function register(Doku_Event_Handler &$controller) {
-
        $controller->register_hook('DOKUWIKI_STARTED', 'BEFORE', $this, 'handle');
-   //TPL_METAHEADER_OUTPUT
     }
 
     /**
@@ -43,6 +41,7 @@ class action_plugin_rdfloki extends DokuWiki_Action_Plugin {
       else
           $configArray['graphEnabled'] = false;
       
+      $configArray['lokiUnavailable'] = plugin_isdisabled('loki') ? true : false;
       $JSINFO['rdfXmlConfig'] = $configArray;
     }
 

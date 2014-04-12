@@ -8,6 +8,11 @@ jQuery(function() {
         return;
     }
 
+    if (JSINFO.rdfXmlConfig.lokiUnavailable) {
+        renderDependencyError();
+        return;
+    }
+
     var $containerWrapper = jQuery(JSINFO.rdfXmlConfig.containerSelector),
         graphContainerId = 'graphContainer',
         graphInitialized = false,
@@ -15,6 +20,10 @@ jQuery(function() {
         rdfXml = JSINFO.rdfXml,
         graphVisible = JSINFO.rdfXmlConfig.graphVisible,
         $graphContainer;
+
+    function renderDependencyError() {
+        jQuery(".page").prepend('<div class="error">Please install Loki plugin in order to use RDFLoki</div>');
+    }
 
     function parse() {
 	var data = jQuery.rdfParser.parse(rdfXml),
