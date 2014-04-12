@@ -1,5 +1,5 @@
 jQuery(function() {
-    var $containerWrapper = jQuery(JSINFO.rdfXmlConfig.containerSelector);
+    var jQuerycontainerWrapper = jQuery(JSINFO.rdfXmlConfig.containerSelector);
 
     function parse() {
 	var data = jQuery.rdfParser.parse(JSINFO.rdfXml),
@@ -12,14 +12,14 @@ jQuery(function() {
     };
 
     function initContainer() {
-	$containerWrapper.append(
+	jQuerycontainerWrapper.append(
             '<div id="#graphContainer">' +
                 '<a id="graphDownload">download</a>' +
             '</div>');
     };
 
     function bind() {
-        $('#graphDownload').click(function() {
+        jQuery('#graphDownload').click(function() {
             // TODO: get svg name
             SVGCrowbar.download('graph');
 
