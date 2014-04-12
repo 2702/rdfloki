@@ -1,5 +1,5 @@
 jQuery(function() {
-    var $container_wrapper = jQuery(JSINFO.rdfXmlConfig.containerSelector);
+    var $containerWrapper = jQuery(JSINFO.rdfXmlConfig.containerSelector);
 
     function dataChanged() {
 	draw(parse());
@@ -12,15 +12,15 @@ jQuery(function() {
     };
 
     function draw(graphData) {
-	jQuery.rdfGraph.draw("#graph_container", graphData);
+	jQuery.rdfGraph.draw("#graphContainer", graphData);
     };
 
     function initContainer() {
 	var cont = document.createElement('div');
-	cont.id = "graph_container";
-	$container_wrapper.append(cont);
+	cont.id = "graphContainer";
+	$containerWrapper.append(cont);
     };
-    
+
     initContainer();
     dataChanged();
 });
