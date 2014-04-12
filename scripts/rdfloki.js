@@ -1,6 +1,6 @@
 jQuery(function() {
     var $containerWrapper = jQuery(JSINFO.rdfXmlConfig.containerSelector),
-        graphContainerId = '#graphContainer',
+        graphContainerId = 'graphContainer',
         $graphContainer;
 
     function parse() {
@@ -10,7 +10,7 @@ jQuery(function() {
     };
 
     function draw(graphData) {
-	jQuery.rdfGraph.draw(graphContainerId, graphData);
+	jQuery.rdfGraph.draw('#' + graphContainerId, graphData);
     };
 
     function initGraphContainer(visible) {
