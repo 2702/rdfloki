@@ -12,6 +12,7 @@ jQuery.extend({
             this._initLinkLabels(data);
             this._centerEls(data);
             this._positionEls();
+            this._bindLayout();
 	},
 
         _prepareData: function(data) {
@@ -80,6 +81,16 @@ jQuery.extend({
             var nodeHref = node
                 .append("a").attr("xlink:href", function(d) { return d.url; });
 
+            var force = this.layout,
+                graph = this,
+                drag = force.drag().origin(function(d) {
+                    return {x: d.x, y: d.y};
+                }).on("drag.force", function(d) {
+                    force.stop();
+                    d.x = d3.event.x;
+                    d.y = d3.event.y;
+                    graph._positionEls();
+                });
 
 	    node.append("title")
 		.text(function(d) { return d.label; });
@@ -109,6 +120,8 @@ jQuery.extend({
 		.attr("width", function(d) {
                     return Math.min(d.width, 30);
                 });
+
+            node.call(drag);
 
             this.node = node;
         },
@@ -148,7 +161,6 @@ jQuery.extend({
 	    this.layout.on("tick", function() {
                 graph._positionEls();
 	    });
-
         },
 
         _positionEls: function() {
