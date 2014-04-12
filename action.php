@@ -41,8 +41,6 @@ class action_plugin_rdfloki extends DokuWiki_Action_Plugin {
     private function readConfig() {
 	return array( 'defaultShow' => $this->getConf('rdfxml-defaultShow'),
 		      'containerSelector' => $this->getConf('rdfxml-containerSelector'),
-		      'hideExportButton' => $this->getConf('rdfxml-hideExportButton'),
-		      'exportButtonSelector' => $this->getConf('rdfxml-exportButtonSelector')
 	);
     }
     
