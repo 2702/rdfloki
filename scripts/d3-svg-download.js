@@ -211,6 +211,8 @@
     }
   }
 
-  window.SVGCrowbar = initialize;
+  window.SVGCrowbar = {
+      download: download
+  };
 
 })();
